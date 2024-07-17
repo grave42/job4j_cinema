@@ -5,8 +5,8 @@
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/">Главная</a>
-                    <a class="nav-item nav-link active" th:href="@{/vacancies}">Расписание</a>
-                    <a class="nav-item nav-link active" th:href="@{/candidates}">Кинотека</a>
+                    <a class="nav-item nav-link active" th:href="@{/filmsessions}">Расписание</a>
+                    <a class="nav-item nav-link active" th:href="@{/cinemalist}">Кинотека</a>
                 </div>
                 <div class="d-flex ms-auto" th:if="${user.name == 'Гость'}">
                     <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Регистрация</a>

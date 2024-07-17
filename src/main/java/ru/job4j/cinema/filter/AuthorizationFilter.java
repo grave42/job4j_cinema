@@ -23,7 +23,7 @@ public class AuthorizationFilter extends HttpFilter {
         }
         var userLoggedIn = request.getSession().getAttribute("user") != null;
         if (!userLoggedIn) {
-            var loginPageUrl = request.getContextPath() + "/users/login";
+            var loginPageUrl = request.getContextPath() + "/index";
             response.sendRedirect(loginPageUrl);
             return;
         }
@@ -34,6 +34,9 @@ public class AuthorizationFilter extends HttpFilter {
         return uri.startsWith("/users/register")
                 || uri.startsWith("/users/login")
                 || uri.startsWith("/js")
+                || uri.startsWith("/index")
+                || uri.startsWith("/filmsessions")
+                || uri.startsWith("/cinemalist")
                 || uri.startsWith("/css");
     }
 }

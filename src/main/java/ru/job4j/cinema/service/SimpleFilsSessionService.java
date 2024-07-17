@@ -1,0 +1,28 @@
+package ru.job4j.cinema.service;
+
+import org.springframework.stereotype.Service;
+import ru.job4j.cinema.model.FilmSession;
+import ru.job4j.cinema.repository.FilmSessionRepository;
+
+import java.util.Collection;
+import java.util.Optional;
+
+@Service
+public class SimpleFilsSessionService implements FilmSessionService{
+
+    private final FilmSessionRepository filmSessionRepository;
+
+    private SimpleFilsSessionService(FilmSessionRepository sql2oFilmSessionRepository) {
+        this.filmSessionRepository = sql2oFilmSessionRepository;
+    }
+
+    @Override
+    public Optional<FilmSession> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Collection<FilmSession> findAll() {
+        return filmSessionRepository.findAll();
+    }
+}
