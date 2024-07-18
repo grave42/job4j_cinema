@@ -14,6 +14,40 @@ public class FilmSession {
     private LocalDateTime endTime;
     private int price;
     private String genreName;
+    public static final Map<String, String> COLUMN_MAPPING = Map.of(
+            "id", "id",
+            "film_id", "filmName",
+            "genre_id", "genreName",
+            "halls_id", "hallsName",
+            "start_time", "startTime",
+            "end_time", "endTime",
+            "price", "price",
+            "row_count", "hallRowCount",
+            "place_count", "hallPlaceCount"
+    );
+    private int hallRowCount;
+    private int hallPlaceCount;
+
+    public FilmSession(int id, String filmName, String genreName, String hallsId, LocalDateTime startTime,
+                       LocalDateTime endTime, int price, String hallsName, int hallRowCount, int hallPlaceCount) {
+        this.id = id;
+        this.filmName = filmName;
+        this.genreName = genreName;
+        this.hallsName = hallsId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.price = price;
+        this.hallRowCount = hallRowCount;
+        this.hallPlaceCount = hallPlaceCount;
+    }
+
+    public int getHallRowCount() {
+        return hallRowCount;
+    }
+
+    public void setHallRowCount(int hallRowCount) {
+        this.hallRowCount = hallRowCount;
+    }
 
     public String getGenreName() {
         return genreName;
@@ -23,24 +57,12 @@ public class FilmSession {
         this.genreName = genreName;
     }
 
-    public static final Map<String, String> COLUMN_MAPPING = Map.of(
-            "id", "id",
-            "film_id", "filmName",
-            "genre_id", "genreName",
-            "halls_id", "hallsName",
-            "start_time", "startTime",
-            "end_time", "endTime",
-            "price", "price"
-    );
+    public int getHallPlaceCount() {
+        return hallPlaceCount;
+    }
 
-    public FilmSession(int id, String filmName, String genreName, String hallsId, LocalDateTime startTime, LocalDateTime endTime, int price) {
-        this.id = id;
-        this.filmName = filmName;
-        this.genreName = genreName;
-        this.hallsName = hallsId;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.price = price;
+    public void setHallPlaceCount(int hallPlaceCount) {
+        this.hallPlaceCount = hallPlaceCount;
     }
 
     public int getId() {
@@ -109,11 +131,11 @@ public class FilmSession {
         if (!(object instanceof FilmSession that)) {
             return false;
         }
-        return id == that.id && filmName == that.filmName && hallsName == that.hallsName && price == that.price && Objects.equals(startTime, that.startTime) && Objects.equals(endTime, that.endTime);
+        return id == that.id && price == that.price && hallRowCount == that.hallRowCount && hallPlaceCount == that.hallPlaceCount && Objects.equals(filmName, that.filmName) && Objects.equals(hallsName, that.hallsName) && Objects.equals(startTime, that.startTime) && Objects.equals(endTime, that.endTime) && Objects.equals(genreName, that.genreName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, filmName, hallsName, startTime, endTime, price);
+        return Objects.hash(id, filmName, hallsName, startTime, endTime, price, genreName, hallRowCount, hallPlaceCount);
     }
 }

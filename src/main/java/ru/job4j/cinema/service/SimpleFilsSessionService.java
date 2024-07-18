@@ -18,7 +18,7 @@ public class SimpleFilsSessionService implements FilmSessionService{
 
     @Override
     public Optional<FilmSession> findById(int id) {
-        return Optional.empty();
+        return filmSessionRepository.findById(id);
     }
 
     @Override
