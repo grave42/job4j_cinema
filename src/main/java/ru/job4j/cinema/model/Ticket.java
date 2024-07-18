@@ -13,12 +13,11 @@ public class Ticket {
             "user_id", "userId"
     );
     private int id;
-    private int sessionId;  // Используем sessionId для единообразия
+    private int sessionId;
     private int rowNumber;
     private int placeNumber;
     private int userId;
 
-    // Конструктор по умолчанию
     public Ticket() {
     }
 
