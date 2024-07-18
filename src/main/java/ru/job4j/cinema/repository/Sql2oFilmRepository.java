@@ -5,7 +5,6 @@ import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Film;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @Repository
 public class Sql2oFilmRepository implements FilmRepository {
@@ -17,16 +16,11 @@ public class Sql2oFilmRepository implements FilmRepository {
     }
 
     @Override
-    public Optional<Film> findById(int id) {
-        return Optional.empty();
-    }
-
-    @Override
     public Collection<Film> findAll() {
         try (var connection = sql2o.open()) {
-            var query = connection.createQuery("select f.name, g.\"name\" as genre_id, f.description, f.\"year\", f.minimal_age, f.duration_in_minutes, f.file_id \n" +
-                    "from films f \n" +
-                    "join genres g on f.genre_id = g.id");
+            var query = connection.createQuery("select f.name, g.\"name\" as genre_id, f.description, f.\"year\", f.minimal_age, f.duration_in_minutes, f.file_id \n"
+                    + "from films f \n"
+                    + "join genres g on f.genre_id = g.id");
             return query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetch(Film.class);
         }
     }

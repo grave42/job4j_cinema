@@ -8,11 +8,11 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class SimpleFilsSessionService implements FilmSessionService{
+public class SimpleFileSessionService implements FilmSessionService {
 
     private final FilmSessionRepository filmSessionRepository;
 
-    private SimpleFilsSessionService(FilmSessionRepository sql2oFilmSessionRepository) {
+    private SimpleFileSessionService(FilmSessionRepository sql2oFilmSessionRepository) {
         this.filmSessionRepository = sql2oFilmSessionRepository;
     }
 
