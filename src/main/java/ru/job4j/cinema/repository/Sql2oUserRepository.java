@@ -21,7 +21,7 @@ public class Sql2oUserRepository implements UserRepository {
         try (var connection = sql2o.open()) {
             try {
                 var sql = """
-                        INSERT INTO users(email, password, name) VALUES (:email, :password, :name)
+                        INSERT INTO users(email, password, full_name) VALUES (:email, :password, :full_name)
                         """;
                 var query = connection.createQuery(sql, true)
                         .addParameter("email", user.getEmail())
