@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.cinema.model.Ticket;
-import ru.job4j.cinema.service.FilmSessionService;
-import ru.job4j.cinema.service.TicketService;
+import ru.job4j.cinema.service.filmsession.FilmSessionService;
+import ru.job4j.cinema.service.ticket.TicketService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/tickets")
@@ -37,19 +39,13 @@ public class TicketController {
 
     @PostMapping("/buyTicket")
     public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
-        try {
-            ticketService.buyTicket(ticket);
-            var filmSessionOptional = filmSessionService.findById(ticket.getSessionId());
-            if (filmSessionOptional.isPresent()) {
-                model.addAttribute("filmName", filmSessionOptional.get().getFilmName());
-            } else {
-                model.addAttribute("filmName", "Неизвестно");
-            }
+        Optional<Ticket> savedTicketOptional = ticketService.buyTicket(ticket);
+        if (savedTicketOptional.isPresent()) {
             model.addAttribute("rowNumber", ticket.getRowNumber());
             model.addAttribute("placeNumber", ticket.getPlaceNumber());
             return "tickets/successbuy";
-        } catch (Exception exception) {
-            model.addAttribute("message", "Не удалось приобрести билет на заданное место. Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.\"");
+        } else {
+            model.addAttribute("message", "Не удалось приобрести билет на заданное место. Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
             return "errors/404";
         }
     }

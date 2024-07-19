@@ -1,11 +1,14 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.ticket;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
 import ru.job4j.cinema.model.Ticket;
 
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class Sql2oTicketRepository implements TicketRepository {
 
@@ -17,7 +20,8 @@ public class Sql2oTicketRepository implements TicketRepository {
 
     @Override
     public Optional<Ticket> buyTicket(Ticket ticket) {
-        try (var connection = sql2o.open()) {
+        var connection = sql2o.open();
+        try {
             var sql = """
                     INSERT INTO tickets(session_id, row_number, place_number, user_id)
                     VALUES (:sessionId, :rowNumber, :placeNumber, :userId)
@@ -30,6 +34,9 @@ public class Sql2oTicketRepository implements TicketRepository {
             int generatedId = query.executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
             return Optional.of(ticket);
+        } catch (Sql2oException e) {
+            log.error(e.getMessage());
         }
+        return Optional.empty();
     }
 }

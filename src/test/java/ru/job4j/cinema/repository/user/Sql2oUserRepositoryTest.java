@@ -1,9 +1,10 @@
-package ru.job4j.cinema.repository;
+package ru.job4j.cinema.repository.user;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.configuration.DatasourceConfiguration;
 import ru.job4j.cinema.model.User;
+import ru.job4j.cinema.repository.film.Sql2oFilmRepository;
 
 import java.util.Properties;
 
@@ -31,6 +32,7 @@ class Sql2oUserRepositoryTest {
 
         repository = new Sql2oUserRepository(sql2o);
     }
+
 
     @Test
     public void whenSaveThenGetSame() {
